@@ -1,0 +1,55 @@
+{% extends 'shop_post/base.html' %}
+
+{% block content %} 
+<style>
+    .post-objects{
+        border: 1px solid black;
+        padding: 15px;
+    }
+    .posts{
+        display: flex;
+        gap:10px;
+
+    }
+    .category{
+        display: flex;
+        justify-content: space-around;
+        margin-bottom: 30px;
+    }
+    h1{
+        text-align: center;
+        margin-bottom: 30px;
+    }
+    .basket-buttons{
+        display: flex;
+        margin-top:50px;
+        /* justify-content: space-between; */
+        gap: 25px;
+    }
+</style>
+<h1>Интернет магазин</h1>
+
+<div class="category">
+    <h2>Категории:</h2>
+    <a href="{% url 'home_page' %}"><h2> Все</h2></a>
+    {% for i in category %}
+        <a href="{% url 'home_page' category_pk=i.pk %}"><h2>{{i.title}}</h2></a>
+    {% endfor %}
+</div>
+
+<div class="posts">
+    {% for i in post %}
+            <div class="post-objects">
+                <h2>{{i.title}}</h2>
+                <p>{{i.text}}</p>
+                <p>{{i.price}}</p>
+                <p>{{i.created_date}}</p>
+                <a href="{% url 'add_basket' product_pk=i.pk %}">Добавить в корзину</a>
+            </div>
+    {% endfor %}
+</div>
+<div class="basket-buttons">
+        <a  href="{% url 'basket' %}">Корзина</a>
+</div>
+
+{% endblock %}
